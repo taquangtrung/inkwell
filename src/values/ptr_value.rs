@@ -26,6 +26,10 @@ impl<'ctx> PointerValue<'ctx> {
         self.ptr_value.get_name()
     }
 
+    pub fn set_name(&self, name: &str) {
+        self.ptr_value.set_name(name)
+    }
+
     pub fn get_type(self) -> PointerType<'ctx> {
         unsafe {
             PointerType::new(self.ptr_value.get_type())
