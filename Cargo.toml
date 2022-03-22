@@ -50,7 +50,7 @@ llvm13-0-no-llvm-linking = ["llvm13-0", "llvm-sys-130/no-llvm-linking"]
 # Don't force linking to libffi on non-windows platforms. Without this feature
 # inkwell always links to libffi on non-windows platforms.
 no-libffi-linking = []
-target-x86 = []
+target-x86 = ["llvm13-0"]
 target-arm = []
 target-mips = []
 target-aarch64 = []
