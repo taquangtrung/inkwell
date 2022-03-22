@@ -46,6 +46,10 @@ impl<'ctx> GlobalValue<'ctx> {
         self.global_value.get_name()
     }
 
+    pub fn set_name(&self, name: &str) -> () {
+        self.global_value.set_name(name)
+    }
+
     pub fn get_previous_global(self) -> Option<GlobalValue<'ctx>> {
         let value = unsafe {
             LLVMGetPreviousGlobal(self.as_value_ref())
