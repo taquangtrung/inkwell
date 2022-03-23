@@ -7,6 +7,7 @@ use crate::values::traits::AsValueRef;
 use crate::values::{IntValue, FunctionValue, PointerValue, VectorValue, ArrayValue, StructValue, FloatValue, PhiValue, InstructionValue, MetadataValue};
 
 use std::convert::TryFrom;
+use std::ffi::CStr;
 
 macro_rules! enum_value_set {
     ($enum_name:ident: $($args:ident),*) => (
@@ -221,6 +222,28 @@ impl<'ctx> BasicValueEnum<'ctx> {
             LLVMTypeKind::LLVMArrayTypeKind => BasicValueEnum::ArrayValue(ArrayValue::new(value)),
             LLVMTypeKind::LLVMVectorTypeKind => BasicValueEnum::VectorValue(VectorValue::new(value)),
             _ => unreachable!("The given type is not a basic type."),
+        }
+    }
+
+    pub fn get_name(&self) -> &CStr {
+        match self {
+            BasicValueEnum::ArrayValue(v) => v.get_name(),
+            BasicValueEnum::IntValue(v) => v.get_name(),
+            BasicValueEnum::FloatValue(v) => v.get_name(),
+            BasicValueEnum::PointerValue(v) => v.get_name(),
+            BasicValueEnum::StructValue(v) => v.get_name(),
+            BasicValueEnum::VectorValue(v) => v.get_name()
+        }
+    }
+
+    pub fn set_name(&self, name: &str) {
+        match self {
+            BasicValueEnum::ArrayValue(v) => v.set_name(name),
+            BasicValueEnum::IntValue(v) => v.set_name(name),
+            BasicValueEnum::FloatValue(v) => v.set_name(name),
+            BasicValueEnum::PointerValue(v) => v.set_name(name),
+            BasicValueEnum::StructValue(v) => v.set_name(name),
+            BasicValueEnum::VectorValue(v) => v.set_name(name)
         }
     }
 

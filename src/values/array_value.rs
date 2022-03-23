@@ -29,6 +29,11 @@ impl<'ctx> ArrayValue<'ctx> {
         self.array_value.get_name()
     }
 
+    /// Sets the nameof an `ArrayValue`
+    pub fn set_name(&self, name: &str) {
+        self.array_value.set_name(name)
+    }
+
     /// Gets the type of this `ArrayValue`.
     pub fn get_type(self) -> ArrayType<'ctx> {
         unsafe {

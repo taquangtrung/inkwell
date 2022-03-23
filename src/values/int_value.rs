@@ -30,6 +30,10 @@ impl<'ctx> IntValue<'ctx> {
         self.int_value.get_name()
     }
 
+    pub fn set_name(&self, name: &str) {
+        self.int_value.set_name(name)
+    }
+
     pub fn get_type(self) -> IntType<'ctx> {
         unsafe {
             IntType::new(self.int_value.get_type())

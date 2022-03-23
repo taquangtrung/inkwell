@@ -28,6 +28,10 @@ impl<'ctx> FloatValue<'ctx> {
         self.float_value.get_name()
     }
 
+    pub fn set_name(&self, name: &str) {
+        self.float_value.set_name(name)
+    }
+
     pub fn get_type(self) -> FloatType<'ctx> {
         unsafe {
             FloatType::new(self.float_value.get_type())
