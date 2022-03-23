@@ -9,6 +9,8 @@ use llvm_sys::core::{LLVMIsAAtomicRMWInst, LLVMIsAAtomicCmpXchgInst};
 use llvm_sys::LLVMOpcode;
 use llvm_sys::prelude::LLVMValueRef;
 
+use std::ffi::CStr;
+
 use crate::basic_block::BasicBlock;
 use crate::values::traits::AsValueRef;
 use crate::values::{BasicValue, BasicValueEnum, BasicValueUse, Value, MetadataValue};
@@ -134,6 +136,14 @@ impl<'ctx> InstructionValue<'ctx> {
         InstructionValue {
             instruction_value: value,
         }
+    }
+
+    pub fn get_name(&self) -> &CStr {
+        self.instruction_value.get_name()
+    }
+
+    pub fn set_name(&self, name: &str) {
+        self.instruction_value.set_name(name)
     }
 
     pub fn get_opcode(self) -> InstructionOpcode {
