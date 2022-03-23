@@ -143,6 +143,7 @@ impl<'ctx> InstructionValue<'ctx> {
     }
 
     pub fn set_name(&self, name: &str) {
+        // TRUNG: TODO: only set name for non-void instruction
         self.instruction_value.set_name(name)
     }
 
