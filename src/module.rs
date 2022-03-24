@@ -294,6 +294,20 @@ impl<'ctx> Module<'ctx> {
         }
     }
 
+    /// Gets a vector of `FunctionValue` this `Module`.
+
+    fn get_functions(&self) -> Vec<FunctionValue<'ctx>> {
+        let mut funcs = vec![];
+        let mut func_opt = self.get_first_function();
+
+        while func_opt != None {
+            let func : FunctionValue = func_opt.unwrap();
+            funcs.push(func);
+            func_opt = func.get_next_function();
+        }
+
+        funcs
+    }
 
     /// Gets a named `StructType` from this `Module`'s `Context`.
     ///
@@ -771,6 +785,13 @@ impl<'ctx> Module<'ctx> {
         Ok(())
     }
 
+
+    /// Prints the content of the `Module` to a `String`.
+    pub fn to_string(&self) -> String {
+        self.print_to_string().to_string()
+    }
+
+
     /// Sets the inline assembly for the `Module`.
     pub fn set_inline_assembly(&self, asm: &str) {
         #[cfg(any(feature = "llvm3-6", feature = "llvm3-7", feature = "llvm3-8", feature = "llvm3-9",
@@ -1042,6 +1063,21 @@ impl<'ctx> Module<'ctx> {
             Some(GlobalValue::new(value))
         }
     }
+
+    /// Gets a vector of all `GlobalValue` in a module.
+    fn get_globals(&self) -> Vec<GlobalValue<'ctx>> {
+        let mut globals = vec![];
+        let mut global_opt = self.get_first_global();
+
+        while global_opt != None {
+            let g = global_opt.unwrap();
+            globals.push(g);
+            global_opt = g.get_next_global();
+        }
+
+        globals
+    }
+
 
     /// Creates a new `Module` from a `MemoryBuffer`.
     ///

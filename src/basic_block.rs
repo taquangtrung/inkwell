@@ -280,6 +280,21 @@ impl<'ctx> BasicBlock<'ctx> {
         }
     }
 
+    /// Obtains a vector of all `InstructionValue` in this `BasicBlock`, if any.
+    /// A `BasicBlock` must have a last instruction to be valid.
+    pub fn get_instructions(&self) -> Vec<InstructionValue<'ctx>> {
+        let mut instrs = vec![];
+        let mut instr_opt = self.get_first_instruction();
+
+        while instr_opt != None {
+            let instr = instr_opt.unwrap();
+            instrs.push(instr);
+            instr_opt = instr.get_next_instruction();
+        }
+
+        instrs
+    }
+
     /// Obtains the terminating `InstructionValue` in this `BasicBlock`, if any. A `BasicBlock` must have a terminating instruction to be valid.
     ///
     /// # Example
@@ -515,10 +530,10 @@ impl<'ctx> BasicBlock<'ctx> {
         }
     }
 
-    /// Gets the address of this `BasicBlock` if possible. Returns `None` if `self` is the entry block to a function. 
-    /// 
+    /// Gets the address of this `BasicBlock` if possible. Returns `None` if `self` is the entry block to a function.
+    ///
     /// # Safety
-    /// 
+    ///
     /// The returned PointerValue may only be used for `call` and `indirect_branch` instructions
     ///
     /// # Example
@@ -532,7 +547,7 @@ impl<'ctx> BasicBlock<'ctx> {
     /// let fn_val = module.add_function("my_fn", fn_type, None);
     /// let entry_bb = context.append_basic_block(fn_val, "entry");
     /// let next_bb = context.append_basic_block(fn_val, "next");
-    /// 
+    ///
     /// assert!(unsafe { entry_bb.get_address() }.is_none());
     /// assert!(unsafe { next_bb.get_address() }.is_some());
     /// ```
