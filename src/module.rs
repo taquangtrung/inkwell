@@ -296,7 +296,7 @@ impl<'ctx> Module<'ctx> {
 
     /// Gets a vector of `FunctionValue` this `Module`.
 
-    fn get_functions(&self) -> Vec<FunctionValue<'ctx>> {
+    pub fn get_functions(&self) -> Vec<FunctionValue<'ctx>> {
         let mut funcs = vec![];
         let mut func_opt = self.get_first_function();
 
@@ -1065,7 +1065,7 @@ impl<'ctx> Module<'ctx> {
     }
 
     /// Gets a vector of all `GlobalValue` in a module.
-    fn get_globals(&self) -> Vec<GlobalValue<'ctx>> {
+    pub fn get_globals(&self) -> Vec<GlobalValue<'ctx>> {
         let mut globals = vec![];
         let mut global_opt = self.get_first_global();
 
